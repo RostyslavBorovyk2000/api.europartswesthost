@@ -104,6 +104,9 @@ class ProductCrudController extends CrudController
 
     public function store()
     {
+        $this->crud->getRequest()->validate([
+            'image_url' => 'nullable|file|image|mimes:jpg,jpeg,png,webp|max:5120',
+        ]);
         $product = Product::create([
             'name' => $this->crud->getRequest()->request->get('name'),
             'article' => $this->crud->getRequest()->request->get('article'),
@@ -121,6 +124,9 @@ class ProductCrudController extends CrudController
 
     public function update()
     {
+        $this->crud->getRequest()->validate([
+            'image_url' => 'nullable|file|image|mimes:jpg,jpeg,png,webp|max:5120',
+        ]);
         $product = Product::find($this->crud->getRequest()->request->get('id'));
         $product->name = $this->crud->getRequest()->request->get('name');
         $product->article = $this->crud->getRequest()->request->get('article');
